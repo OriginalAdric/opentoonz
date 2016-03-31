@@ -72,7 +72,8 @@ public:
 	void setIsDiscendentOrder(bool isDiscendentOrder) { m_isDiscendent = isDiscendentOrder; }
 	void setOrderType(DataType dataType) { m_orderType = dataType; }
 
-	// n.b. refreshData viene chiamato PRIMA di getItemCount() e getItemData()
+
+	// n.b. refreshData is called FIRST in getItemCount() and getItemData
 	// vanno messe dentro refreshData() le operazioni "costose" di getItemData() e getItemCount()
 	virtual void refreshData(){};
 	virtual int getItemCount() const = 0;
@@ -226,7 +227,7 @@ class DvItemViewerPanel : public QFrame, public TSelection::View
 {
 	Q_OBJECT
 
-	QColor m_alternateBackground;	//alaternate bg color for teble view (170,170,170)
+	QColor m_alternateBackground;	 //alternate bg color for table view (170,170,170)
 	QColor m_textColor;				 //text color (black)
 	QColor m_selectedTextColor;		 //selected item text color (white)
 	QColor m_folderTextColor;		 //folder item text color (blue)

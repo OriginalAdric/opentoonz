@@ -20,7 +20,7 @@
 
 //-----------------------------------------------------------------------------
 //	LineTestViewer
-// Andrebbe messo a fattor comune del codice con SceneViewer
+// Should be refactored into SceneViewer
 
 #ifdef USE_QPAINTER
 class LineTestViewer : public QWidget

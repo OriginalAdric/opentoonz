@@ -76,19 +76,20 @@ bool TCellData::getCells(TXsheet *xsh, int r0, int c0, int &r1, int &c1, bool in
 	bool cellSet = false;
 	for (c = c0; c < c0 + m_colCount; c++) {
 		TXshColumn *column = xsh->getColumn(c);
-		/*- index:選択範囲左から何番目のカラムか(一番左は0) -*/
+		/*- index: number of column in selection (leftmost == 0) -*/
 		int index = c - c0;
 		std::vector<TXshCell> cells = m_cells;
 		bool isColumnEmpty = true;
 		if (column) {
 			isColumnEmpty = column->isEmpty();
 			/*- 各セルに左上→右下で順に割り振られるIndex -*/
+			/*- Index to be allocated from top-left -> lower-right in each cell -*/
 			int cellIndex = index * m_rowCount;
-			/*- セルに中身があるところまでcellIndexをインクリメント -*/
+			/*- Increment cellIndex up to the next populated cell -*/
 			while (cellIndex < (index + 1) * m_rowCount && m_cells[cellIndex].isEmpty())
 				++cellIndex;
-			/*- 選択範囲の終端 -*/
-			if ((int)m_cells.size() <= cellIndex) //Celle vuote.
+			/*- End of the selected range -*/
+			if ((int)m_cells.size() <= cellIndex) //Blank cells.
 				return cellSet;
 			/*- カラムが変更不可なら次のカラムへ -*/
 			if (!canChange(column, index))
@@ -97,7 +98,7 @@ bool TCellData::getCells(TXsheet *xsh, int r0, int c0, int &r1, int &c1, bool in
 		if (doZeraryClone && isColumnEmpty)
 			cloneZeraryFx(index, cells);
 
-		// inserisco le celle
+		// Enter the cells
 		if (insert)
 			xsh->insertCells(r0, c, m_rowCount);
 		cellSet = xsh->setCells(r0, c, m_rowCount, &cells[index * m_rowCount]);
@@ -106,9 +107,7 @@ bool TCellData::getCells(TXsheet *xsh, int r0, int c0, int &r1, int &c1, bool in
 }
 
 //-----------------------------------------------------------------------------
-/*-- c0 を起点に、TCellDataの選択範囲のカラム幅分、
-	全てのカラムがcanChangeかどうか調べる。
---*/
+/*-- Check that all columns within the selected width of TCellData starting at c0 can be changed*/
 bool TCellData::canChange(TXsheet *xsh, int c0) const
 {
 	int c;
@@ -125,15 +124,13 @@ bool TCellData::canChange(TXsheet *xsh, int c0) const
 
 bool TCellData::canChange(TXshColumn *column, int index) const
 {
-	/*- カラムが無い、又は空のときTrue（編集可） -*/
+	/*- No column or empty column (editable) -*/
 	if (!column || column->isEmpty())
 		return true;
-	/*- カラムがロックされていたらFalse（編集不可） -*/
+	/*- False when the column is locked（non-editable） -*/
 	if (column->isLocked())
 		return false;
-	/*-- 全てのセルがcanSetCellかどうか調べる 今からペーストするセルが、
-		ペースト先のカラムと同種ならばtrueとなる。
-	--*/
+	/*-- Check that all cells in which to paste can be set --*/
 	TXshCellColumn *cellColumn = column->getCellColumn();
 	assert(cellColumn);
 	int i;

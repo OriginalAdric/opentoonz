@@ -1,7 +1,7 @@
 
 
 /*---------------------------------------------------------
- * Interfaccia di predict3d.cpp
+ * Interface for predict3d.cpp
  -------------------------------------------------------*/
 
 #ifndef PREDICT3D_H

@@ -17,10 +17,10 @@ using namespace DVGui;
 //=============================================================================
 // ShortcutViewer
 // --------------
-// E' l'editor dello shortcut associato all'azione corrente
-// Visualizza lo shortcut e permette di cambiarlo digitando direttamente
-// la nuova sequenza di tasti
-// Per cancellarlo bisogna chiamare removeShortcut()
+// The editor for the shortcut associated with the current action
+// View the shortcut and allow user to change it directly by typing the
+// new keystroke sequence
+// It must call removeShortcut() to clear.
 //-----------------------------------------------------------------------------
 
 class ShortcutViewer : public QWidget
@@ -50,8 +50,8 @@ signals:
 //=============================================================================
 // ShortcutTree
 // ------------
-// Visualizza tutti le QAction (con gli eventuali shortcut assegnati)
-// Serve per selezionare la QAction corrente
+// View all QActions (with any assigned shortcuts)
+// Used to select the current QAction
 //-----------------------------------------------------------------------------
 
 class ShortcutTree : public QTreeWidget
@@ -64,7 +64,7 @@ public:
 	~ShortcutTree();
 
 protected:
-	// aggiunge un blocco di QAction. commandType e' un CommandType::MenubarCommandType
+	// Adds a QAction block. commandType is a CommandType::MenubarCommandType
 	void addFolder(const QString &title, int commandType, QTreeWidgetItem *folder = 0);
 
 public slots:
@@ -78,7 +78,7 @@ signals:
 //=============================================================================
 // ShortcutPopup
 // -------------
-// Questo e' il popup che l'utente utilizza per modificare gli shortcut
+// The popup used to edit shortcuts
 //-----------------------------------------------------------------------------
 
 class ShortcutPopup : public Dialog

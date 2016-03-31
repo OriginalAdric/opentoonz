@@ -89,13 +89,13 @@ protected slots:
 	void onStereoChecked(int);
 	void onStereoChanged();
 
-	/*-- OutputSettingsのPreset登録/削除/選択 --*/
+	/*-- Preset OutputSettings (registration/deletion/selection) --*/
 	void onAddPresetButtonPressed();
 	void onRemovePresetButtonPressed();
 	void onPresetSelected(const QString &);
-	/*-- OutputsettingsのPresetコンボを更新するため --*/
+	/*-- Update OutputSettings preset combo --*/
 	void onCameraSettingsChanged();
-	/*-- Scene Settings のFPSを編集できるようにする --*/
+	/*-- Edit scene settings FPS--*/
 	void onFrameRateEditingFinished();
 };
 

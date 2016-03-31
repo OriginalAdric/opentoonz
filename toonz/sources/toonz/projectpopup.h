@@ -117,9 +117,9 @@ protected:
 
 public:
 	ProjectPopup(bool isModal);
-	// da TProjectManager::Listener
+	// from TProjectManager::Listener
 	void onProjectSwitched();
-	// da TProjectManager::Listener
+	// from TProjectManager::Listener
 	void onProjectChanged() {}
 
 	void updateProjectFromFields(TProject *);

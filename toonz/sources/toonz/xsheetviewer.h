@@ -340,13 +340,13 @@ public:
 
 	void dragToolClick(QMouseEvent *);
 	void dragToolDrag(QMouseEvent *);
-	void dragToolRelease(QMouseEvent *); // n.b. cancella il dragtool
+	void dragToolRelease(QMouseEvent *); // n.b. cancels dragtool
 
-	void dragToolLeave(QEvent *); // n.b. cancella il dragtool
+	void dragToolLeave(QEvent *); // n.b. cancels dragtool
 
 	void dragToolClick(QDropEvent *);
 	void dragToolDrag(QDropEvent *);
-	void dragToolRelease(QDropEvent *); // n.b. cancella il dragtool
+	void dragToolRelease(QDropEvent *); // n.b. cancels dragtool
 
 	void setQtModifiers(Qt::KeyboardModifiers value) { m_qtModifiers = value; }
 
@@ -358,7 +358,7 @@ public:
 	TXsheet *getXsheet() const;
 	int getCurrentColumn() const;
 	int getCurrentRow() const;
-	//! Restituisce la \b objectId corrispondente alla colonna \b col
+	//! Returns the \b objectId corresponding to column \b col
 	TStageObjectId getObjectId(int col) const;
 
 	void setCurrentColumn(int col);
@@ -541,7 +541,7 @@ public slots:
 
 	void onScrubStopped();
 
-	//!Aggiorna il "titolo" del widget.
+	//!Update the widget "title".
 	void changeWindowTitle();
 
 	void resetXsheetNotes();

@@ -70,7 +70,7 @@ void CastSelection::enableCommands()
 	}
 }
 
-// TODO: da qui in avanti: spostare in un altro file
+// TODO: from now on: move to another file
 
 //=============================================================================
 //

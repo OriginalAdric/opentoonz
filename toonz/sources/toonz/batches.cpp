@@ -432,7 +432,7 @@ void BatchesController::addComposerTask(const TFilePath &_taskFilePath)
 
 //-------------------------------------------------------------------------------------------------------
 
-/*--- id はタスクを追加するごとにインクリメントされる数字 ---*/
+/*--- id is a number that is incremented each time you add a task ---*/
 void BatchesController::addTask(const QString &id, TFarmTask *task, bool doUpdate)
 {
 #ifdef _DEBUG
@@ -639,13 +639,13 @@ void BatchesController::getTasks(const QString &parentId, vector<QString> &tasks
 
 void BatchesController::startAll()
 {
-	// viene usata la farm <==> m_controller != 0
+	// Local farm <==> m_controller != 0
 	if (!m_controller) {
-		// uso una multimap per ordinare rispetto alla priority
+		// Use multimap to sort by priority
 		std::multimap<int, TFarmTask *> tasksByPriority;
 
 		std::map<QString, TFarmTask *>::reverse_iterator it = m_tasks.rbegin();
-		//uso il reverse iterator anche qui altrimenti se ho task con priorita' uguale li esegue dall'ultimo al primo
+		// Use reverse iterator here otherwise tasks with equal priority execute from last to first
 		for (; it != m_tasks.rend(); ++it) {
 			TFarmTask *task = it->second;
 			tasksByPriority.insert(std::make_pair(task->m_priority, task));
@@ -697,7 +697,7 @@ void BatchesController::start(const QString &taskId)
 			subtask->m_callerMachineName = computerName;
 		}
 
-	// viene usata la farm <==> m_controller != 0
+	// Local farm <==> m_controller != 0
 	if (!m_controller) {
 		m_localExecutor.addTask(new TaskRunner(task, m_localControllerPortNumber));
 	} else {
@@ -1341,8 +1341,8 @@ BatchesController *BatchesController::instance()
 	if (!m_instance) {
 		m_instance = new BatchesController;
 
-		// scandisce un range di porte fino a troverne una libera da utilizzare come
-		// porta del local controller
+		// Scan a range of ports until a free port is found to be used as the
+		// local controller
 
 		const int portRangeSize = 100;
 

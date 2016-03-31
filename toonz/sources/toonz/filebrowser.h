@@ -103,7 +103,7 @@ public:
 
 	static void refreshFolder(const TFilePath &folder);
 
-	// ritorna true se il file e' stato rinominato. dopo la chiamata fp contiene il nuovo path
+	// Returns true if file was renamed. After the call, fp contains the new path
 	static bool renameFile(TFilePath &fp, QString newName);
 
 	void makeCurrentProjectVisible();

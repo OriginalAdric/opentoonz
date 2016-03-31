@@ -35,7 +35,7 @@ const int fs_iconMarginBottom = 15;
 
 //=============================================================================
 // FilmstripFrames
-// (inserita dentro Filmstrip : QScrollArea)
+// (insert inside Filmstrip : QScrollArea)
 //-----------------------------------------------------------------------------
 
 class FilmstripFrames : public QFrame, public TSelection::View
@@ -57,37 +57,37 @@ public:
 	void setDarkLineColor(const QColor &color) { m_darkLineColor = color; }
 	QColor getDarkLineColor() const { return m_darkLineColor; }
 
-	// helper method: ritorna il livello corrente
+	// helper method: return the current level
 	TXshSimpleLevel *getLevel() const;
 
 	QSize getIconSize() const { return m_iconSize; }
 	int getFrameLabelWidth() const { return m_frameLabelWidth; }
 
-	// la y si riferisce al margine superiore dell'iconcina index-esima
+	// The y-axis refers to the top margin of the indexed small icon
 	int y2index(int y) const;
 	int index2y(int index) const;
 
-	// se c'e' un livello e 0<=index<frameCount ritorna il frameid index-esimo
-	// altrimenti ritorna TFrameId()
+	// Returns the indexed frameid if there is a level and 0<=index<frameCount,
+	// otherwise returns TFrameId()
 	TFrameId index2fid(int index) const;
 
-	// se c'e' un livello e fid e' un frame del livello ritorna l'indice. altrimenti -1
+	// Returns level frame index if there is a level and fid, otherwise -1.
 	int fid2index(const TFrameId &fid) const;
 
-	// restituisce l'altezza dei frames esistenti (piu' uno vuoto)
+	// return height of existing frames (plus an empty frame)
 	int getFramesHeight() const;
 
-	// aggiorna le dimensioni del QWidget in base al numero di fotogrammi del livello
-	// la dimensione verticale e' sempre >= minimumHeight. Questo permette di gestire
-	// lo scroll anche oltre i frame esistenti.
-	// se minimumHeight == -1 viene utilizzato visibleRegion().boundingRect().bottom()
+	// Updates the size of the QWidget based on number of frames in the level
+	// The verical dimension is always >= minimumHeight. The lets you scroll
+	// past the existing frames.
+	// If minimumHeight == -1, visibleRegion().boundingRect().bottom() is used
 	void updateContentHeight(int minimumHeight = -1);
 
-	// assicura che il frame index-esimo sia visibile (eventualmente facendo scroll)
+	// Ensure the frame at index is visible (possible by scrolling)
 	void exponeFrame(int index);
 
-	// esegue uno scroll di dy pixel. se dy<0 fa scorrere i fotogrammi verso l'alto
-	// lo scroll e' illimitato verso il basso. aggiorna contentHeight
+	// Scroll dy pixels. If dy < 0, scroll frames upwards.
+	// Scrolling downwards is ulimited. Updates contentHeight
 	void scroll(int dy);
 
 	// overriden from TSelection::View
@@ -170,7 +170,7 @@ private:
 	int m_scrollSpeed,
 		m_dragSelectionStartIndex, //!< Starting level index during drag selections.
 		m_dragSelectionEndIndex,   //!< Ending level index during drag selections.
-		m_timerId;				   // per l'autoscroll
+		m_timerId;				   // for autoscroll
 
 	bool m_selecting,
 		m_dragDropArmed,
@@ -214,7 +214,7 @@ protected:
 	//}
 
 public slots:
-	//!Aggiorna il "titolo" del widget e rinfresca la filmstrip se c'e' qualche "check" attivo.
+	//!Updates the widget's "title" and refreshes the filmstrip if there is an active "check".
 	void onLevelSwitched(TXshLevel *oldLevel);
 	// void ensureValuesVisible(int x, int y);
 

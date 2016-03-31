@@ -38,7 +38,7 @@ public:
 // CastItems
 //
 //-----------------------------------------------------------------------------
-// TODO: spostare in un altro file
+// TODO: move to another file
 
 class TXshLevel;
 class TXshSimpleLevel;

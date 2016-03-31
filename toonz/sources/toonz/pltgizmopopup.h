@@ -66,7 +66,7 @@ signals:
 // ColorFader
 //-----------------------------------------------------------------------------
 
-// TODO: spostare il colorfield qui dentro
+// TODO: move colorfield here
 
 class ColorFader : public QWidget
 {

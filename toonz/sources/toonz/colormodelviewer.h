@@ -14,8 +14,10 @@ class ColorModelViewer : public FlipBook
 	Q_OBJECT
 
 	/*-- ツールのタイプを手元に持っておき、取得の手間を省く --*/
+	/*-- Type of current tool so we don't have to go get it --*/
 	int m_mode;
 	/*-- ColorModelのファイルパスを覚えておいて、UseCurrentFrame間の移動に対応 --*/
+	/*-- Save ColorModel file path, corresponding to movement between UseCurrentFrame--*/
 	TFilePath m_currentRefImgPath;
 
 public:
@@ -56,6 +58,7 @@ protected slots:
 	void updateViewer();
 
 	/*- ツールのTypeに合わせてPickのタイプも変える。それにあわせカーソルも切り替える -*/
+	/*- When changing tools, also switch the Pick and cursor type -*/
 	void changePickType();
 
 signals:

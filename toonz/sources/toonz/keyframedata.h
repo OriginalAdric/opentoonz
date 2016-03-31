@@ -24,7 +24,7 @@ public:
 
 	KeyData m_keyData;
 
-	//Numero di colonna della pegbar associato al booleano isCycleEnabled della pegbar
+	//Pegbars' column numbers associated with the pegbar's isCycleEnabled boolean
 	std::map<int, bool> m_isPegbarsCycleEnabled;
 
 	TKeyframeData();

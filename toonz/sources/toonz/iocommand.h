@@ -115,7 +115,7 @@ public:
 	std::vector<TXshLevel *> loadedLevels; //!< [\p Out]     Levels loaded by resource loading procedures. Multiple
 										   //!               levels \a may be loaded for a single resource data.
 public:
-	/*- Resourceは常にLoadするように変更（ファイルをプロジェクトフォルダにコピー（=Import）したい場合は、ユーザが手動で行う） -*/
+	/*- Resource change to always load (if you want to copy (=Import) files to the project folder, the user can do this manually) -*/
 	LoadResourceArguments()
 		: row0(-1), col0(-1), row1(-1), col1(-1)
 		  //, importPolicy(ASK_USER)
@@ -160,11 +160,11 @@ enum SaveSceneFlags {
 	SAVE_SUBXSHEET = 0x2,
 };
 
-// ritorna true sse la scena e' stata salvata
-// se fp esiste gia': se (flags&SILENTLY_OVERWRITE) != 0 sovrascrive silenziosamente, altrimenti
-// chiede il permesso all'utente
-// se l'xsheet corrente non e' l'xsheet principale: se (flags&SAVE_SUBXSHEET) == 0 salva comunque
-// tutta la scena, altrimenti solo il sottoxsheet
+// Returns true if the scene is saved
+// If fp already exists: if (flags&SILENTLY_OVERWRITE) != 0 it will silently
+// overwrite, otherwise it will ask the user for permission.
+// If the current xsheet is not the main xsheet: if (flags&SAVE_SUBXSHEET) == 0
+// it will save the whole scene, otherwise it will save only the sub-xsheet
 bool saveScene(const TFilePath &fp, int flags);
 bool saveScene();
 
@@ -216,8 +216,8 @@ bool exposeLevel(TXshSimpleLevel *sl, int row, int col,
 				 const std::vector<TFrameId> &fids,
 				 bool insert = false, bool overWrite = false);
 
-// se e' necessario salvare la scena chiede il permesso all'utente (save,discard,cancel).
-// Ritorna false se l'utente ha risposto Cancel o se il salvataggio della scena e' fallito per qualche motivo
+// If necessary to save the scene, ask permission (save,discard,cancel)
+// Return false if Cancel is selected or if the scene fails to save for some 
 bool saveSceneIfNeeded(QString msg);
 
 //! Create and expose column with comment in \b commentList.

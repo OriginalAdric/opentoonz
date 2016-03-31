@@ -153,7 +153,7 @@ void cutCellsWithoutUndo(int &r0, int &c0, int &r1, int &c1)
 		}
 	}
 
-	//Se la selezione corrente e' TCellSelection svuoto la selezione.
+	// Empty the selection if there is a current selection
 	TCellSelection *cellSelection = dynamic_cast<TCellSelection *>(TApp::instance()->getCurrentSelection()->getSelection());
 	if (cellSelection)
 		cellSelection->selectNone();
@@ -203,9 +203,9 @@ public:
 
 		int c0BeforeCut = c0;
 		int c1BeforeCut = c1;
-		//Cut delle celle che sono in newSelection
+		// Cut cells that are in newSelection
 		cutCellsWithoutUndo(r0, c0, r1, c1);
-		//Se le colonne erano vuote le resetto (e' necessario farlo per le colonne particolari, colonne sount o palette)
+		// If columns are empty, reset (needed specifically for the sound or palette columns)
 		TXsheet *xsh = TApp::instance()->getCurrentXsheet()->getXsheet();
 		assert(c1BeforeCut - c0BeforeCut + 1 == (int)m_areOldColumnsEmpty.size());
 		int c;
@@ -221,7 +221,7 @@ public:
 	{
 		int r0, c0, r1, c1;
 		m_newSelection->getSelectedCells(r0, c0, c1, r1);
-		//Cut delle celle che sono in newSelection
+		//Cut cells that are in newSelection
 		pasteCellsWithoutUndo(m_data, r0, c0, c1, r1, true, false);
 		TApp::instance()->getCurrentXsheet()->notifyXsheetChanged();
 	}
@@ -270,7 +270,7 @@ public:
 			int colr0, colr1;
 			col->getRange(colr0, colr1);
 			if (r0 <= colr0 && r1 >= colr1 && !col->getLevelColumn()) {
-				//la colonna verra' rimossa dall'xsheet
+				//columns to remove from xsheet
 				m_columns[i] = col;
 				col->addRef();
 			}
@@ -299,7 +299,7 @@ public:
 	{
 		TXsheet *xsh = TApp::instance()->getCurrentXsheet()->getXsheet();
 
-		//devo rimettere le colonne che ho rimosso dall'xsheet
+		//Put back the columns removed from the xsheet
 		QMap<int, TXshColumn *>::const_iterator colIt;
 		for (colIt = m_columns.begin(); colIt != m_columns.end(); colIt++) {
 			int index = colIt.key();
@@ -563,7 +563,7 @@ class RenumberUndo::UndoNotifier : public TUndo
 //=============================================================================
 
 bool pasteStrokesInCellWithoutUndo(int row, int col, const StrokesData *strokesData,
-								   std::vector<int> &indices) // in indices gli stroke aggiunti
+								   std::vector<int> &indices) // indices in the added stroke
 {
 	TApp *app = TApp::instance();
 	TXsheet *xsh = app->getCurrentXsheet()->getXsheet();
@@ -1034,12 +1034,12 @@ bool pasteCellsWithoutUndo(int &r0, int &c0, int &r1, int &c1, bool insert = tru
 	if (r0 < 0 || c0 < 0)
 		return false;
 
-	/*-- この中で、r1,c1はペースト範囲にあわせリサイズされる --*/
+	/*-- Here, r1 and c1 are resized according to paste range--*/
 	bool ret = cellData->getCells(xsh, r0, c0, r1, c1, insert, doZeraryClone);
 	if (!ret)
 		return false;
 
-	//Se la selezione corrente e' TCellSelection selezione le celle copiate
+	// Check that the selection is the copied cells
 	TCellSelection *cellSelection = dynamic_cast<TCellSelection *>(TApp::instance()->getCurrentSelection()->getSelection());
 	if (cellSelection)
 		cellSelection->selectCells(r0, c0, r1, c1);
@@ -1065,7 +1065,7 @@ public:
 		: m_areOldColumnsEmpty(areColumnsEmpty)
 	{
 		QClipboard *clipboard = QApplication::clipboard();
-		/*-- ペーストされたセルをdataに保持しておく --*/
+		/*-- Stores the pasted cell data --*/
 		TCellData *data = new TCellData();
 		TXsheet *xsh = TApp::instance()->getCurrentXsheet()->getXsheet();
 		data->setCells(xsh, r0, c0, r1, c1);
@@ -1075,7 +1075,7 @@ public:
 		m_oldSelection = new TCellSelection();
 		m_oldSelection->selectCells(oldR0, oldC0, oldR1, oldC1);
 
-		/*-- さらに、ペースト前のセルも保持しておく --*/
+		/*-- Also, store the previous data --*/
 		m_beforeData = beforeData->clone();
 	}
 
@@ -1110,17 +1110,17 @@ public:
 			xsh->insertColumn(c);
 		}
 
-		/*-- クリップボードの内容を取っておく --*/
+		/*-- Store the clipboard's contents --*/
 		const QMimeData *mimeData = clipboard->mimeData();
 
 		/*-- ペースト前にあったセル配列をcellDataとしていったんクリップボードに入れ、ペーストさせる --*/
 		clipboard->setMimeData(cloneData(m_beforeData), QClipboard::Clipboard);
 		pasteCellsWithoutUndo(r0, c0, c1, r1, true, false);
 
-		/*-- クリップボードを元に戻す --*/
+		/*-- Undo the clipboard --*/
 		clipboard->setMimeData(cloneData(mimeData), QClipboard::Clipboard);
 
-		//Se le selezione corrente e' TCellSelection seleziono le celle che sono in oldSelection
+		// Check that the current selection are the cells in oldSelection
 		TCellSelection *cellSelection = dynamic_cast<TCellSelection *>(TApp::instance()->getCurrentSelection()->getSelection());
 		if (cellSelection && oldR0 != -1 && oldC0 != -1)
 			cellSelection->selectCells(oldR0, oldC0, oldR1, oldC1);
@@ -1134,7 +1134,7 @@ public:
 		m_newSelection->getSelectedCells(r0, c0, c1, r1);
 		QClipboard *clipboard = QApplication::clipboard();
 		clipboard->setMimeData(cloneData(m_data), QClipboard::Clipboard);
-		//Cut delle celle che sono in newSelection
+		//Cut of the cells in newSelection
 		pasteCellsWithoutUndo(r0, c0, c1, r1, false, false);
 		TApp::instance()->getCurrentXsheet()->notifyXsheetChanged();
 	}
@@ -1430,7 +1430,7 @@ void TCellSelection::pasteCells()
 	if (!cellData && cellKeyframeData)
 		cellData = cellKeyframeData->getCellData();
 	if (cellData) {
-		if (isEmpty()) //Se la selezione delle celle e' vuota ritorno.
+		if (isEmpty()) //If the selected cells are empty, return
 			return;
 
 		if (cellData->getCellCount() == 0) {
@@ -1455,12 +1455,12 @@ void TCellSelection::pasteCells()
 
 		bool isPaste = pasteCellsWithoutUndo(cellData, r0, c0, r1, c1);
 
-		//Se la selezione corrente e' TCellSelection selezione le celle copiate
+		// Make the current selection the copied cells.
 		TCellSelection *cellSelection = dynamic_cast<TCellSelection *>(TApp::instance()->getCurrentSelection()->getSelection());
 		if (cellSelection)
 			cellSelection->selectCells(r0, c0, r1, c1);
 
-		//Controllo se le colonne erano vuote prima del paste
+		//Control the colums that were empty before the paste
 		//n.b. devo farlo dopo il paste perche' prima non ho il range delle colonne incollate corrette.
 		std::vector<bool> areColumnsEmpty;
 		int c;
@@ -1493,14 +1493,14 @@ void TCellSelection::pasteCells()
 		TKeyframeSelection selection;
 		if (isEmpty() &&
 			TApp::instance()->getCurrentObject()->getObjectId() == TStageObjectId::CameraId(0))
-		//Se la selezione e' vuota e l'objectId e' quello della camera sono nella
-		// colonna di camera quindi devo selezionare la row corrente e -1.
+		//If the selection is empty and the objectId is the camera in the camera column
+		// select the current row and -1
 		{
 #ifdef LINETESTAA
-			(Daniele)L'else sotto e' cambiato - controllare che il copy / paste delle chiavi funzioni correttamente verso la colonna di camera !
+			(Daniele)The following else changed - check that the copy/paste keys function correctly in the camera column!
 #endif
 
-													int row = TApp::instance()->getCurrentFrame()->getFrame();
+			int row = TApp::instance()->getCurrentFrame()->getFrame();
 			selection.select(row, -1);
 		} else {
 			//Retrieves all keyframe positions from mime data and translates them by (r0,c0)
@@ -1527,7 +1527,7 @@ void TCellSelection::pasteCells()
 	}
 
 	if (const DrawingData *drawingData = dynamic_cast<const DrawingData *>(mimeData)) {
-		if (isEmpty()) //Se la selezione delle celle e' vuota ritorno.
+		if (isEmpty()) //Return if the cell selection is empty
 			return;
 
 		set<TFrameId> frameIds;
@@ -1542,7 +1542,7 @@ void TCellSelection::pasteCells()
 		TUndoManager::manager()->add(new PasteDrawingsInCellUndo(level, frameIds, r0, c0));
 	}
 	if (const StrokesData *strokesData = dynamic_cast<const StrokesData *>(mimeData)) {
-		if (isEmpty()) //Se la selezione delle celle e' vuota ritorno.
+		if (isEmpty()) //Return if the cell selection is empty
 			return;
 
 		TImageP img = xsh->getCell(r0, c0).getImage(false);
@@ -1575,7 +1575,7 @@ void TCellSelection::pasteCells()
 			pasteStrokesInCell(r0, c0, strokesData);
 	}
 	if (const RasterImageData *rasterImageData = dynamic_cast<const RasterImageData *>(mimeData)) {
-		if (isEmpty()) //Se la selezione delle celle e' vuota ritorno.
+		if (isEmpty()) //Return if the cell selection is empty
 			return;
 
 		TImageP img = xsh->getCell(r0, c0).getImage(false);
@@ -1689,11 +1689,11 @@ void TCellSelection::pasteKeyframesInto()
 		TKeyframeSelection selection;
 		if (isEmpty() &&
 			TApp::instance()->getCurrentObject()->getObjectId() == TStageObjectId::CameraId(0))
-		//Se la selezione e' vuota e l'objectId e' quello della camera sono nella
-		// colonna di camera quindi devo selezionare la row corrente e -1.
+			//If the selection is empty and the objectId is the camera in the camera column
+			// select the current row and -1
 		{
 #ifdef LINETESTAA
-			(Daniele)L'else sotto e' cambiato - controllare che il copy / paste delle chiavi funzioni correttamente verso la colonna di camera !
+			(Daniele)The following else changed - check that the copy / paste keys function correctly in the camera column!
 #endif
 
 													int row = TApp::instance()->getCurrentFrame()->getFrame();
@@ -1884,7 +1884,7 @@ public:
 
 //-----------------------------------------------------------------------------
 
-// TODO: spostare queste funzioni in un posto piu' generale e riutilizzabile
+// TODO: move these functions somewhere more general and reusable
 
 int getLevelType(const TImageP &img)
 {
@@ -1998,7 +1998,7 @@ void createNewDrawing(TXsheet *xsh, int row, int col, int preferredLevelType)
 
 void TCellSelection::dPasteCells()
 {
-	if (isEmpty()) //Se la selezione delle celle e' vuota ritorno.
+	if (isEmpty()) //Return if the cell selection is empty
 		return;
 	int r0, c0, r1, c1;
 	getSelectedCells(r0, c0, r1, c1);
@@ -2038,7 +2038,7 @@ void TCellSelection::dPasteCells()
 }
 
 //-----------------------------------------------------------------------------
-/*-- セルの上書きペースト --*/
+/*-- Cell overwrite paste --*/
 void TCellSelection::overWritePasteCells()
 {
 	int r0, c0, r1, c1;
@@ -2049,7 +2049,7 @@ void TCellSelection::overWritePasteCells()
 
 	TXsheet *xsh = TApp::instance()->getCurrentXsheet()->getXsheet();
 	if (const TCellData *cellData = dynamic_cast<const TCellData *>(mimeData)) {
-		if (isEmpty()) //Se la selezione delle celle e' vuota ritorno.
+		if (isEmpty()) //Return if the cell selection is empty
 			return;
 
 		if (cellData->getCellCount() == 0) {
@@ -2074,14 +2074,14 @@ void TCellSelection::overWritePasteCells()
 			return;
 		}
 
-		/*---- Undoのためにペースト前のCellDataを保存しておく --*/
+		/*---- Before pasting, save a copy of CellData for Undo --*/
 		r1 = r0 + cellData->getRowCount() - 1;
 		c1 = c0 + cellData->getColCount() - 1;
 		TCellData *beforeData = new TCellData();
 		beforeData->setCells(xsh, r0, c0, r1, c1);
 
-		/*-- InsertをFalseにすることで、Ovewriteペーストになる
-			r1,c1はペースト範囲にあわせリサイズされる 
+		/*-- If the insert is false, become an overwrite paste.
+			r1, c1 are resized according to the paste range.
 		--*/
 		bool isPaste = pasteCellsWithoutUndo(r0, c0, r1, c1, false);
 
@@ -2090,10 +2090,10 @@ void TCellSelection::overWritePasteCells()
 			return;
 		}
 
-		/*-- 各カラムについて、ペースト前にカラムが空だったならtrue --*/
+		/*-- Return true if each column was empty before pasting --*/
 		std::vector<bool> areColumnsEmpty;
 		int c;
-		/*-- ペースト後の各カラムについて --*/
+		/*-- For each column after paste --*/
 		for (c = c0; c <= c1; c++) {
 			TXshColumn *column = xsh->getColumn(c);
 			if (!column) {
@@ -2101,11 +2101,11 @@ void TCellSelection::overWritePasteCells()
 				continue;
 			}
 			int newCr0, newCr1;
-			/*-- 新たなカラムに何かペーストされているかどうか --*/
+			/*-- Check whether there is something to paste in a new column --*/
 			column->getRange(newCr0, newCr1);
 			areColumnsEmpty.push_back(!column || column->isEmpty() || (newCr0 == r0 && newCr1 == r1));
 		}
-		/*-- r0,c0,r1,c1はペーストされた範囲　old付きはペースト前の選択範囲 --*/
+		/*-- r0,c0,r1,c1 are the pasted range, old are the previous selected range --*/
 		TUndoManager::manager()->add(new OverwritePasteCellsUndo(r0, c0, r1, c1, oldR0, oldC0, oldR1, oldC1,
 																 areColumnsEmpty, beforeData));
 		TApp::instance()->getCurrentScene()->setDirtyFlag(true);

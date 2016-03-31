@@ -71,6 +71,7 @@ public:
 	QString getTlvMode() const;
 	QString TlvMode_Unpainted;
 	/*- 塗られていないカラー二値画像からTLVへの変換 -*/
+	/*- Conversion from color binary image to an unpainted TLV -*/
 	QString TlvMode_UnpaintedFromNonAA;
 	QString TlvMode_PaintedFromTwoImages;
 	QString TlvMode_PaintedFromNonAA;
@@ -79,7 +80,7 @@ public:
 
 public slots:
 
-	void apply(); //!< Starts the convertion.
+	void apply(); //!< Starts the conversion.
 	void onOptionsClicked();
 	void onConvertFinished();
 	void onTlvModeSelected(const QString &tlvMode);

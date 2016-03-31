@@ -153,7 +153,7 @@ protected:
 
 	//bool m_doCompare;
 
-	//questi sono per il saving dei frame
+	//For saving the frame
 	TLevelWriterP m_lw;
 	TLevelReaderP m_lr;
 	TXshSimpleLevel *m_xl;

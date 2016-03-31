@@ -13,7 +13,7 @@
 
 //=============================================================================
 // DrawingData
-// Sono i fotogrammi della filmstrip
+// Frames of the filmstrip
 //-----------------------------------------------------------------------------
 
 class DrawingData : public DvMimeData
@@ -52,8 +52,8 @@ public:
 	void setLevelFrames(TXshSimpleLevel *sl, std::set<TFrameId> &frames);
 
 	// data -> filmstrip
-	// Se setType == INSERT inserisce i frames nel livello se necessario spostando
-	// verso il basso i preesistenti. Altrimenti sostituisce i frames.
+	// If setType == INSERT, inserts the frames in the level by moving down
+	// the pre-existing if necessary. Othwerwise it replaces the frames.
 	bool getLevelFrames(TXshSimpleLevel *sl, std::set<TFrameId> &frames,
 						ImageSetType setType, bool cloneImages,
 						bool &keepOriginalPalette,

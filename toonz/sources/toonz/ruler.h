@@ -13,8 +13,8 @@ class SceneViewer;
 // Ruler
 //-----------------------------------------------------------------------------
 
-/*! La classe si occupa della visualizzazione e della gestione
-    di una linea guida (puo' essere orizzontale o verticale)
+/*! This class is responsible for vizualizing and managing a guideline (may be 
+	horizontal or vertical)
 */
 class Ruler : public QWidget
 {

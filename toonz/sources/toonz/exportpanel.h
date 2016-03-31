@@ -7,10 +7,10 @@
  **
  ** exportpanel.h
  **
- ** comprende:
- ** - ClipListViewer che controlla l'elenco delle scene di cui fare il 
+ ** includes:
+ ** - ClipListViewer that controls the list of scenes the make up the
  **   rendering
- ** - OutputIconViewer che visualizza l'icona del file generato
+ ** - OutputIconViewer that displays the generated file's icon
  **
  ******************************************************************************/
 #include "pane.h"
@@ -57,7 +57,7 @@ public:
 
 	void getSelectedClips(std::vector<TFilePath> &selectedClips);
 
-	// da DvItemListModel
+	// from DvItemListModel
 	int getItemCount() const;
 	QVariant getItemData(int index, DataType dataType, bool isSelected = false);
 	bool isSceneItem(int index) const { return true; }
@@ -146,9 +146,9 @@ public:
 	void setUseMarkers(bool useMarkers);
 	bool getUseMarkers() const { return m_useMarkers; }
 
-	// gestione cliplist
+	// manage cliplist
 	int getClipCount() const { return (int)m_clipList.size(); }
-	// n.b. ritorna TFilePath() se e' la scena corrente
+	// n.b. returns TFilePath() for the current scene
 	TFilePath getClipPath(int index) const;
 	void setClipPath(int index, const TFilePath &path);
 	void addClipPath(const TFilePath &path);

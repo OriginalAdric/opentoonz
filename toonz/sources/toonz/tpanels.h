@@ -106,7 +106,7 @@ public:
 	ColorFieldEditorController();
 	~ColorFieldEditorController() {}
 
-	//Indice dello stile corrente == 1
+	//Current style index == 1
 	void edit(DVGui::ColorField *colorField);
 	void hide();
 
@@ -132,7 +132,7 @@ public:
 	CleanupColorFieldEditorController();
 	~CleanupColorFieldEditorController() {}
 
-	//Indice dello stile corrente == 1
+	//Current style index == 1
 	void edit(DVGui::CleanupColorField *colorField);
 	void hide();
 

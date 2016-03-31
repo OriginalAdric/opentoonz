@@ -50,8 +50,8 @@ class PsdSettingsPopup : public DVGui::Dialog
 	DVGui::CheckBox *m_createSubXSheet;
 	QButtonGroup *m_psdFolderOptions;
 
-	//QTreeWidget *m_psdTree;	// per adesso non serve. Servirà in un secondo momento quando implemento la scelta dei livelli
-	// da caricare
+	//QTreeWidget *m_psdTree;	// Not necessary for now. It will be used later
+	// when the choice of levels to load is implemented
 	QTextEdit *m_modeDescription;
 	TPSDParser *m_psdparser;
 	QLabel *m_filename;  // Name

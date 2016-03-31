@@ -18,7 +18,7 @@ class DragTool;
 // RowArea
 //-----------------------------------------------------------------------------
 
-//!La classe si occupa della visualizzazione dell'area che gestisce le righe.
+//!This class handles the display area for rows
 class RowArea : public QWidget
 {
 	Q_OBJECT
