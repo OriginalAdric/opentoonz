@@ -59,7 +59,7 @@ signals:
 //=============================================================================
 // LineTestPanel
 //-----------------------------------------------------------------------------
-//Andrebbe messo a fattor comune del codice con ViewerPane
+//Should be refactored into ViewerPane
 class LineTestPane : public TPanel
 {
 	Q_OBJECT

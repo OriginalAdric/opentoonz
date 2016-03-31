@@ -30,7 +30,7 @@ public:
 	TFilePath getCurrentFolder() const;
 	static TLevelSet *getLevelSet();
 
-	// da TSelection
+	// from TSelection
 	bool isEmpty() const { return false; }
 	void selectNone() {}
 	void enableCommands();
@@ -62,10 +62,10 @@ signals:
 
 //-----------------------------------------------------------------------------
 
-//!La classe si occupa della visualizzazione dello scene cast.
-/*!E' figlia di \b QSplitter e contiene un albero che visualizza i folder \b m_treeView
-   e un widget che consente di visualizzare i file \b m_sceneCastView.
-   I suoi widget sono settati tramite un modello del tipo \b SceneCastModel.*/
+//!The class is responsibile for visualizing the scene cast.
+/*!E' Subclass of \b QSplitter and contains a tree that displays the folder \b m_treeView
+	and a widget that allows you to view files \b m_sceneCastView.
+	Its widgets are set via a SceneCastModel type model.*/
 class CastBrowser : public QSplitter, public DvItemListModel
 {
 	Q_OBJECT

@@ -32,8 +32,8 @@ public:
 	public:
 		std::string m_name;
 		int m_xres, m_yres;
-		double m_fx, m_fy;				  /*- カメラサイズ -*/
-		std::string m_xoffset, m_yoffset; /*- オフセット（単位付の文字列として保存） -*/
+		double m_fx, m_fy;				  /*- Camera size -*/
+		std::string m_xoffset, m_yoffset; /*- Offset (save as a unit with a string) -*/
 		double m_ar;
 		Res() : m_name(), m_xres(0), m_yres(0), m_ar(0),
 				m_fx(0), m_fy(0), m_xoffset(""), m_yoffset("") {}

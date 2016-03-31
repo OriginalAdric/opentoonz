@@ -45,7 +45,7 @@ protected slots:
 // CellArea
 //-----------------------------------------------------------------------------
 
-//!La classe si occupa della visualizzazione delle celle nel viewer.
+//!This class handles cell display in the viewer.
 class CellArea : public QWidget
 {
 	Q_OBJECT
@@ -73,7 +73,7 @@ class CellArea : public QWidget
 	void drawKeyframe(QPainter &p, const QRect toBeUpdated);
 	void drawNotes(QPainter &p, const QRect toBeUpdated);
 
-	//Restistusce true
+	//Returns true
 	bool getEaseHandles(int r0, int r1, double e0, double e1, int &rh0, int &rh1);
 
 	DragTool *getDragTool() const;
@@ -107,14 +107,14 @@ protected:
 	void dropEvent(QDropEvent *event);
 	bool event(QEvent *event);
 
-	/*!Crea il menu' del tasto destro che si visualizza quando si clicca sulla cella,
-      distinguendo i due casi: cella piena, cella vuota.*/
+	/*!Create context menu that appears when you right-click the cell,
+	  distinguishing the two cases: full cell, blank cell*/
 	void createCellMenu(QMenu &menu, bool isCellSelected);
-	//!Crea il menu' del tasto destro che si visualizza si clicca su un key frame.
+	//!Create the context menu that appears when you right-click a key frame.
 	void createKeyMenu(QMenu &menu);
-	//!Crea il menu' del tasto destro che si visualizza quando si clicca sulla linea tre due key frame.
+	//!Create the context menu that appears when you right click the line between two keyframes.
 	void createKeyLineMenu(QMenu &menu, int row, int col);
-	//!Crea il menu' del tasto destro che si visualizza quando si sopra una nota.
+	//!Create the context menu that appears when you hover over a note.
 	void createNoteMenu(QMenu &menu);
 
 protected slots:

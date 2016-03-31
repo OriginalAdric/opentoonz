@@ -41,7 +41,7 @@ public:
 	const Day *getDay(const QDate &time) const;
 	const Day *getDay(string dateString) const; // getDay(dateString)->getDate() == dateString
 
-	// nota. ritorna il giorno (se c'e') che ha un timeStamp IDENTICO a time
+	// note: returns the day (if existing) that has an IDENTICAL timestamp
 	void addItem(const TFilePath &fp);
 
 private:

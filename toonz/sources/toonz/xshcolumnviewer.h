@@ -173,7 +173,7 @@ protected slots:
 	void onValueChanged(const QString &);
 };
 
-//!La classe si occupa della visualizzazione dell'area che gestisce le colonne.
+//!This class handles the display area for columns
 class ColumnArea : public QWidget
 {
 	Q_OBJECT

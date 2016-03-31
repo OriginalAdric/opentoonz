@@ -50,10 +50,10 @@ public:
 	void cutCells();
 	void cutCells(bool withoutCopy);
 
-	/*- セルの上書きペースト -*/
+	/*- Cell selection paste -*/
 	void overWritePasteCells();
 
-	//! \note: puo' anche essere r0>r1 o c0>c1
+	//! \note: Can be  r0>r1 or c0>c1
 	void selectCells(int r0, int c0, int r1, int c1);
 	void selectCell(int row, int col);
 	void selectNone();

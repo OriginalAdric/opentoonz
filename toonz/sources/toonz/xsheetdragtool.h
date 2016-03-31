@@ -25,7 +25,7 @@ public:
 
 	XsheetViewer *getViewer() const { return m_viewer; }
 
-	//! chiama l'update del QWidget relativo
+	//! call update on relevant QWidget
 	void refreshCellsArea();
 	void refreshRowsArea();
 	void refreshColumnsArea();

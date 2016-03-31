@@ -80,7 +80,7 @@ public:
 
 	void setController(TFarmController *controller);
 	TFarmController *getController() const;
-	void update(); // aggiorna lo stato del Batch interrogando il FarmController
+	void update(); // update the Batch status by querying the FarmController
 
 public slots:
 	void onExit(bool &);
@@ -89,7 +89,7 @@ protected:
 	BatchesController();
 	~BatchesController();
 
-	// non implementati
+	// not implemented
 	BatchesController(const BatchesController &);
 	void operator=(const BatchesController &);
 

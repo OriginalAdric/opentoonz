@@ -51,11 +51,13 @@ void CleanupSaveInField::browseDirectory()
 	QString initialFolder = m_lastSelectedPath;
 	if (initialFolder.isEmpty()) {
 		/*--- 親Widgetを取得する ---*/
+		/*--- Get the parent widget ---*/
 		CleanupSettingsPane *parentCSP = dynamic_cast<CleanupSettingsPane *>(parentWidget());
 		if (parentCSP) {
 			TFilePath lastSelectedPath = parentCSP->getLastSelectedPath();
 			if (!lastSelectedPath.isEmpty()) {
 				/*---- 親Widgetのm_lastSelectedPathが、CLNファイルの見込み所在地なので、その１つ上のフォルダを初期フォルダにする。---*/
+				/*---- Parent Widget of m_lastSelectedPath is the folder above in the initial folder because of the expected location of the CLN file. ---*/
 				initialFolder = QString::fromStdWString(lastSelectedPath.getParentDir().getParentDir().getWideString());
 			}
 		}
@@ -497,7 +499,8 @@ void CleanupSettingsPane::onLevelSwitched()
 
 void CleanupSettingsPane::onSaveSettings()
 {
-	/*--- Clueaup保存先を指定していないとエラーを返す ---*/
+	/*--- Cleanup保存先を指定していないとエラーを返す ---*/
+	/*--- Return an error if a Cleanup destination is not specified ---*/
 	if (m_pathField->getPath().isEmpty()) {
 		MsgBox(WARNING, "Please fill the Save In field.");
 		return;

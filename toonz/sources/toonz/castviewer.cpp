@@ -57,8 +57,8 @@ using namespace DVGui;
 namespace
 {
 
-//Se il widget del cast viewer viene spostato in toonzqt (e quindi fatto dipendere dallo sceneHandle)
-//questo undo puo' essere spostato in un nuovo file levelsetcommand in toonzlib.
+// If the cast viewer widget is moved into toonzqt (and made dependent on sceneHandle)
+// this undo can be moved to a new levelsetcommand in toonzlib
 class MoveLevelToFolderUndo : public TUndo
 {
 	TLevelSet *m_levelSet;
@@ -187,7 +187,7 @@ void CastTreeViewer::enableCommands()
 
 void CastTreeViewer::onFolderChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 {
-	// rende la selezione corrente; serve per intercettare il comando MI_Clear
+	// make selection current; serves to intercept the MI_Clear command
 	makeCurrent();
 }
 
@@ -764,7 +764,7 @@ QMenu *CastBrowser::getContextMenu(QWidget *parent, int index)
 		menu->addAction(CommandManager::instance()->getAction(MI_RemoveUnused));
 		return menu;
 	}
-	// controllo cosa c'e' nella selezione.
+	// Control what is in the selection
 	// => audioSelected, vectorLevelSelected, paletteSelected
 	std::set<int>::const_iterator it;
 	bool audioSelected = false;
@@ -775,7 +775,7 @@ QMenu *CastBrowser::getContextMenu(QWidget *parent, int index)
 	for (it = indices.begin(); it != indices.end(); ++it) {
 		int index = *it;
 		if (index < 0 || index >= m_castItems->getItemCount())
-			continue; // non dovrebbe mai succedere
+			continue; // this should never happen
 		TXshSimpleLevel *sl = m_castItems->getItem(index)->getSimpleLevel();
 		if (!sl) {
 			if (m_castItems->getItem(index)->getPaletteLevel())
@@ -802,13 +802,13 @@ QMenu *CastBrowser::getContextMenu(QWidget *parent, int index)
 	if (audioSelected && !paletteSelected && !vectorLevelSelected && !otherFileSelected)
 		return menu;
 
-	// MI_EditLevel solo se e' stato selezionato un singolo diverso da livelli palette a livelli audio
+	// MI_EditLevel only if the selection is a single item other than the audio or palette levels
 	if (indices.size() == 1 && !audioSelected && !paletteSelected)
 		menu->addAction(cm->getAction(MI_EditLevel));
 	if (!paletteSelected)
 		menu->addAction(cm->getAction(MI_SaveLevel));
 	menu->addSeparator();
-	// MI_ConvertToVectors se sono stati selezionati solo livelli non vettoriali
+	// MI_ConvertToVectors only if selecting non-vectore levels
 	if (!audioSelected && !paletteSelected && !vectorLevelSelected)
 		menu->addAction(cm->getAction(MI_ConvertToVectors));
 	menu->addSeparator();

@@ -34,7 +34,7 @@ class Room : public TMainWindow
 	TFilePath m_path;
 	QString m_name;
 
-	/*-- Room毎にComboViewerの初期状態をLoadするため、MainWindowからComboViewerにアクセスできるようにする。 --*/
+	/*-- Save initial state of each Room's ComboViewer to be able to acces ComboViewer from MainWindow --*/
 	ComboViewerPanel *m_centralViewer;
 
 public:
@@ -118,10 +118,11 @@ public:
 
 	Room *getCurrentRoom() const;
 
-	/*-- FillAreas,FillLinesに直接切り替えるコマンド --*/
+
+	/*-- Commands to switch directly to FillAreas/FillLines --*/
 	void toggleFillAreas();
 	void toggleFillLines();
-	/*-- StylepickerAreas,StylepickerLinesに直接切り替えるコマンド --*/
+	/*-- Commands to switch directly to StylepickerAreas/StylepickerLines --*/
 	void togglePickStyleAreas();
 	void togglePickStyleLines();
 
@@ -192,10 +193,10 @@ protected slots:
 #endif
 
 public slots:
-	/*--- タイトルにシーン名を入れる ---*/
+	/*--- Set title to scene name ---*/
 	void changeWindowTitle();
-	/*--- FlipモジュールでタイトルバーにロードしたLevel名を表示 ---*/
-	/*--- Cleanupモジュールでタイトルバーに進捗を表示 ---*/
+	/*--- Display Level name that was loaded into title bar in the Flip module ---*/
+	/*--- View the progress in Cleanup module in the title bar ---*/
 	void changeWindowTitle(QString &);
 
 signals:

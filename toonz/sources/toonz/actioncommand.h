@@ -4,9 +4,9 @@
 
 actioncommand.h
 
-OBSOLETO. cfr menubarcommand.h
-TODO: eliminare il file
+OBSELETE. cf. menubarcommand.h
+TODO: delete this file
 
 */
 
-NON DEVE ESSERE INCLUSO
+MUST NOT BE INCLUDED

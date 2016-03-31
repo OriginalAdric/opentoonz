@@ -69,6 +69,7 @@ private:
 	QGroupBox *m_imgViewBox;
 
 	/*---ビジー時にボタンをUnableするため---*/
+	/*--- To disable button while busy ---*/
 	QPushButton *m_cleanupAllButton;
 	QPushButton *m_cleanupButton;
 	QPushButton *m_skipButton;
@@ -93,11 +94,18 @@ private:
 	/*	Palette上書きの判断をするために、保存先Levelが既に存在するかどうかのフラグ
 		ただし、REPLACE又はNOPAINT_ONLYの場合はこのフラグは無視して必ずPaletteを上書きする
 	*/
+	/*	Palette flag override for determining whether the destination level already exists.
+		This palette flag is ignored in the cases of REPLACE or NOPAINT_ONLY.
+	*/
 	QMap<TXshSimpleLevel *, bool> m_levelAlreadyExists;
 	/*--- 再Cleanupの場合、Xsheetを再現するためにパスを取っておく ---*/
+	/*--- Save path in order to reproduce the Xsheet in case of re-cleanup ---*/
 	TFilePath m_originalLevelPath;
 	/*	Cleanup後、Paletteを更新するかどうかのフラグ。再Cleanupの場合は、
 		m_actionがREPLACE_LEVELの場合以外は元のPaletteを保持する。
+	*/
+	/*	Flag to indicate whether or not to update the Palette after cleanup.
+	In the case of re-cleanup, m_action except for REPLACE_LEVEL to retain the original Palette.
 	*/
 	bool m_keepOriginalPalette;
 	TPalette *m_originalPalette;
@@ -119,6 +127,7 @@ private:
 	void advanceFrame();
 
 	/*--- 進捗をタスクバーから確認するため、MainWindowのタイトルバーに表示する ---*/
+	/*--- To confirm the progress from the taskbar, display in the MainWindow title bar ---*/
 	void updateTitleString();
 
 private slots:

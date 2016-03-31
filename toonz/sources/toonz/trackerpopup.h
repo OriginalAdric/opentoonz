@@ -12,7 +12,7 @@
 
 #include "toonz/txshsimplelevel.h"
 
-// per il tracker
+// for the tracker
 #include "dummyprocessor.h"
 // tracker.lib
 #include "ObjectTracker.h"
@@ -39,9 +39,9 @@ class CheckBox;
 // TrackerPopup
 //-----------------------------------------------------------------------------
 
-//!La classe si occupa di visualizzare il popup "convert-To-Vector Settings".
-/*!Consente di cambiare modalita' di vettorizzazione e quindi in funzione
-   di questa di cambiare i parametri da settare.*/
+//!This class handles displaying the "convert-To-Vector Settings" popup.
+/*!It allows vectorization mode to be changed, then depending on that, to change
+   the parameters to be set.*/
 
 class TrackerPopup : public DVGui::Dialog
 {
@@ -73,11 +73,11 @@ private:
 	int m_progressBarIndex;
 	bool m_stoppedProcess;
 public slots:
-	//!Se la vettorializzazione e' andata a buon fine chiude il popup.
+	//! Closes the popup if vectorization completed successfully.
 	void onTrack();
-	//! Inizia il tracking in un nuovo thread
+	//! Start tracking in a new thread
 	void startNewThread();
-	//! Ferma il processo di tracking dopo il frame corrente
+	//! Stop tracking process after the current frame
 	void stopProcessing();
 };
 
@@ -122,17 +122,17 @@ public:
 			int variationWindow, int frameStart,
 			int framesNumber);
 	~Tracker();
-	// ritorna true se è tutto ok
+	// Return true if everything is ok
 	bool trackCurrentFrame();
 	int getFramesNumber() { return m_framesNumber; }
 	int getStartFrameIndex() { return m_indexFrameStart; }
 	QString getLastError() { return getErrorMessage(m_lastErrorCode); }
 private:
-	// Inizializzazione Variabili
-	// ritorna true se è tutto ok
+	// Variable initialization
+	// Return true if everything is ok
 	bool setup();
 	int m_lastErrorCode;
-	// Restituisce il messaggio di errore dal codice di errore che viene dato dal metodo apply()
+	// Returns the error message from error code given by the apply() method
 	QString getErrorMessage(int errorCode);
 };
 
@@ -143,8 +143,8 @@ class MyThread : public QThread
 public:
 	MyThread(Tracker *tracker);
 	void run();
-	// Ritorna 0 se non c'è stato alcun errore nell'esecuzione del thread
-	// altrimenti ritorna il codice di errore del tracker
+	// Return 0 if there was no error in thread execution,
+	// otherwise return tracker's error code
 	int getLastError() { return m_trackerError; };
 private:
 	int m_trackerError;

@@ -1,15 +1,15 @@
 
 
 /*-----------------------------------------------------
- * Header della libreria metnum.cpp
- * Alcuni algoritmi di Metodi Numerici
- * Autore: P. Foggia
+ * Header for metnum.cpp library
+ * Algorithms for Numerical Methods
+ * Author: P. Foggia
  *--------------------------------------------------*/
 
 #ifndef METNUM_H
 #define METNUM_H
 
-/*----------------  prototipi di funzioni  ---------------------*/
+/*----------------  Function Prototypes  ---------------------*/
 
 namespace MetNum
 {

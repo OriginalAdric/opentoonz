@@ -54,7 +54,8 @@ public:
 	CellsMover();
 	~CellsMover();
 
-	// porcata da aggiustare
+	// crap to fix
+	// Hack flag to determine column state for undo.
 	int m_uffa;
 
 	// initialize the Mover

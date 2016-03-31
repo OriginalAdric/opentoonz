@@ -13,7 +13,7 @@ namespace OnioniSkinMaskGUI
 {
 //-----------------------------------------------------------------------------
 
-//Da fare per la filmstrip!!
+//TODO: for the filmstrip!!
 void addOnionSkinCommand(QMenu *, bool isFilmStrip = false);
 
 //=============================================================================

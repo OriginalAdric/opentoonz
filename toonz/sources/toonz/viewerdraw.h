@@ -4,8 +4,8 @@
 #define VIEWERDRAW_INCLUDED
 
 //
-// funzioni per il disegno (OpenGL) di oggetti
-// che si vedono nel viewer
+// Functions for drawing (OpenGL) objects that
+// can be seen in the viewer
 //
 
 #include <vector>
@@ -23,7 +23,7 @@ class TAffine;
 namespace ViewerDraw
 {
 
-enum { // cfr drawCamera()
+enum { // cf. drawCamera()
 	CAMERA_REFERENCE = 0X1,
 	CAMERA_3D = 0X2,
 	SAFE_AREA = 0X4,

@@ -132,7 +132,7 @@ public slots:
 };
 
 //-----------------------------------------------------------------------------
-/*-- モジュールごとにMenubarの内容を切り替える --*/
+/*-- Switch contents of the Menubar for each module --*/
 class StackedMenuBar : public QStackedWidget
 {
 	Q_OBJECT
@@ -180,7 +180,7 @@ public:
 	}
 
 protected:
-	/*--  右クリックで消えないようにする--*/
+	/*-- Prevent disappearing in right-click --*/
 	void contextMenuEvent(QContextMenuEvent *event)
 	{
 		event->accept();

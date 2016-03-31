@@ -39,7 +39,7 @@ void each(TXshSimpleLevel *sl, std::set<TFrameId> &frames, int each);
 
 void duplicate(TXshSimpleLevel *sl, std::set<TFrameId> &frames, bool withUndo);
 
-// TODO vanno spostati in un altro posto
+// TODO move this to another place
 void moveToScene(TXshLevel *sl, std::set<TFrameId> &frames);
 void moveToScene(TXshSimpleLevel *sl);
 void moveToScene(TXshPaletteLevel *pl);
