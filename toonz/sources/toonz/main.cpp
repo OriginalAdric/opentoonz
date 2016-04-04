@@ -154,7 +154,7 @@ void postThreadMsg(TThread::Message *)
 void qt_mac_set_menubar_merge(bool enable);
 #endif
 
-//Modifica per toonz (non servono questo tipo di licenze)
+//Modified per toonz (don't need this type of license)
 #define NO_LICENSE
 //-----------------------------------------------------------------------------
 
@@ -213,7 +213,7 @@ void toonzRunOutOfContMemHandler(unsigned long size)
 
 //-----------------------------------------------------------------------------
 
-// todo.. da mettere in qualche .h
+// todo.. put into some .h
 #ifndef LINETEST
 DV_IMPORT_API void initStdFx();
 #endif
@@ -221,10 +221,9 @@ DV_IMPORT_API void initColorFx();
 
 //-----------------------------------------------------------------------------
 
-//! Inizializzaza l'Environment di Toonz
-/*! In particolare imposta la projectRoot e
-    la stuffDir, controlla se la directory di outputs esiste (e provvede a
-    crearla in caso contrario) verifica inoltre che stuffDir esista.
+//! Initialize the Toonz environment
+/*! In particular, sets the projectRoot and stuffDir, check if output directory
+	exists (and create if not), and verifies that stuffDir exists.
 */
 void initToonzEnv()
 {
@@ -232,7 +231,7 @@ void initToonzEnv()
 
 #ifdef MACOSX
 
-// Stuff dir deve essere assoluta (la rendo tale)
+// Stuff dir must be absoulte (make this)
 
 #if defined BRAVODEMO
 	QFileInfo infoStuff(QString("Toonz 7.1 Bravo stuff"));
@@ -262,8 +261,8 @@ void initToonzEnv()
 	QString fullApplicationNameQStr = QString(applicationName) + " " + applicationVersion;
 	QCoreApplication::setApplicationName(fullApplicationNameQStr);
 
-	/*-- TOONZROOTのPathの確認 --*/
-	// controllo se la xxxroot e' definita e corrisponde ad un folder esistente
+	/*-- Check TOONZROOT path --*/
+	// Check if the xxxroot was defined and corresponds to an existing folder
 	TFilePath stuffDir = TEnv::getStuffDir();
 	if (stuffDir == TFilePath() || !TFileStatus(stuffDir).isDirectory()) {
 		if (stuffDir == TFilePath())
@@ -274,11 +273,11 @@ void initToonzEnv()
 
 	//  TProjectManager::instance()->enableSimpleProject(true);
 
-	//! Inizializzazione Librerie di Toonz.
-	/*! Inizializza le plugins di toonz, imposta la rootDir per
-    ImagePatternStrokeStyle e per ImageCache, setta i folder del progetto,
-    imposta lo Stencil Buffer Context (QT), e l'offlineGL da utilizzare
-*/
+	//! Initialize the Toonz library.
+	/*! Initialize the toonz plugins, set the rootDir for
+	ImagePatternStrokeStyle and ImageCache, set the project folder,
+	set the Stencil Buffer Context (QT), and use offlineGL.
+	*/
 
 	Tiio::defineStd();
 	initImageIo();
@@ -298,7 +297,7 @@ void initToonzEnv()
 
 	CustomStyleManager::setRootPath(library);
 
-	// sembra indispensabile nella lettura dei .tab 2.2:
+	// Seems essential for reading .tab 2.2:
 	TPalette::setRootDir(library);
 	TImageStyle::setLibraryDir(library);
 
@@ -306,26 +305,26 @@ void initToonzEnv()
 
 	TProjectManager *projectManager = TProjectManager::instance();
 
-	/*-- TOONZPROJECTSのパスセットを取得する。（TOONZPROJECTSはセミコロンで区切って複数設定可能） --*/
+	/*-- Get the TOONZPROJECTS path (multiple TOONZPROJECTS can be set if separated by a semicolon) --*/
 	TFilePathSet projectsRoots = ToonzFolder::getProjectsFolders();
 	TFilePathSet::iterator it;
 	for (it = projectsRoots.begin(); it != projectsRoots.end(); ++it)
 		projectManager->addProjectsRoot(*it);
 
-	/*-- もしまだ無ければ、TOONZROOT/sandboxにsandboxプロジェクトを作る --*/
+/*-- Make TOONZROOT/sandbox project if none exists --*/
 	projectManager->createSandboxIfNeeded();
 
 	/*
   TProjectP project = projectManager->getCurrentProject();
-  Non dovrebbe servire per Tab:
+  Does not help for Tab:
   project->setFolder(TProject::Drawings, TFilePath("$scenepath"));
   project->setFolder(TProject::Extras, TFilePath("$scenepath"));
   project->setUseScenePath(TProject::Drawings, false);
   project->setUseScenePath(TProject::Extras, false);
 */
-	// Imposto la rootDir per ImageCache
+	// Set the ImageCache rootDir
 
-	/*-- TOONZCACHEROOTの設定  --*/
+	/*-- Set TOONZCACHEROOT  --*/
 	TFilePath cacheDir = ToonzFolder::getCacheRootFolder();
 	if (cacheDir.isEmpty())
 		cacheDir = TEnv::getStuffDir() + "cache";
@@ -349,7 +348,7 @@ int main(int argc, char *argv[])
 	}
 #endif
 
-	/*-- "-layout [レイアウト設定ファイル名]" で、必要なモジュールのPageだけのレイアウトで起動することを可能にする --*/
+	/*-- If "-layout [layout configuration filename]", start with only layout page of the required modules --*/
 	QString argumentLayoutFileName = "";
 	TFilePath loadScenePath;
 	if (argc > 1) {
@@ -370,7 +369,7 @@ int main(int argc, char *argv[])
 	a.setAttribute(Qt::AA_UseDesktopOpenGL, true);
 #endif
 
-	// Some Qt objects are destroyed badly withouth a living qApp. So, we must enforce a way to either
+	// Some Qt objects are destroyed badly without a living qApp. So, we must enforce a way to either
 	// postpone the application destruction until the very end, OR ensure that sensible objects are
 	// destroyed before.
 
@@ -396,7 +395,7 @@ int main(int argc, char *argv[])
 #endif
 
 	//Set the app's locale for numeric stuff to standard C. This is important for atof() and similar
-	//calls that are locale-dependant.
+	//calls that are locale-dependent.
 	setlocale(LC_NUMERIC, "C");
 
 // Set current directory to the bundle/application path - this is needed to have correct relative paths
@@ -493,7 +492,7 @@ int main(int argc, char *argv[])
 	splash.showMessage(offsetStr + "Loading Translator ...", Qt::AlignCenter, Qt::white);
 	a.processEvents();
 
-	// Carico la traduzione contenuta in toonz.qm (se ï¿½ presente)
+	// Load translation in toonz.qm (ï¿½ if present)
 	QString languagePathString = QString::fromStdString(toString(TEnv::getConfigDir() + "loc"));
 #ifdef MACOSX
 	//the merge of menu on osx can cause problems with different languages with the Preferences menu
@@ -508,35 +507,35 @@ int main(int argc, char *argv[])
 #else
 	translator.load("toonz", languagePathString);
 #endif
-	// La installo
+	// Installation
 	a.installTranslator(&translator);
 
-	// Carico la traduzione contenuta in toonzqt.qm (se e' presente)
+	// Load translation in toonzqt.qm (if present)
 	QTranslator translator2;
 	translator2.load("toonzqt", languagePathString);
 	a.installTranslator(&translator2);
 
-	// Carico la traduzione contenuta in tnzcore.qm (se e' presente)
+	// Load translation in tnzcore.qm (if present)
 	QTranslator tnzcoreTranslator;
 	tnzcoreTranslator.load("tnzcore", languagePathString);
 	qApp->installTranslator(&tnzcoreTranslator);
 
-	// Carico la traduzione contenuta in toonzlib.qm (se e' presente)
+	// Load translation in toonzlib.qm (if present)
 	QTranslator toonzlibTranslator;
 	toonzlibTranslator.load("toonzlib", languagePathString);
 	qApp->installTranslator(&toonzlibTranslator);
 
-	// Carico la traduzione contenuta in colorfx.qm (se e' presente)
+	// Load translation in colorfx.qm (if present)
 	QTranslator colorfxTranslator;
 	colorfxTranslator.load("colorfx", languagePathString);
 	qApp->installTranslator(&colorfxTranslator);
 
-	// Carico la traduzione contenuta in tools.qm
+	// Load translation in tools.qm
 	QTranslator toolTranslator;
 	toolTranslator.load("tnztools", languagePathString);
 	qApp->installTranslator(&toolTranslator);
 
-	// Aggiorno la traduzione delle properties di tutti i tools
+	// Update  translation properties of all tools
 	TTool::updateToolsPropertiesTranslation();
 
 	splash.showMessage(offsetStr + "Loading styles ...", Qt::AlignCenter, Qt::white);
@@ -561,16 +560,16 @@ int main(int argc, char *argv[])
 //iwsw commented out temporarily
 #if 0 
   QStringList monitorNames;
-  /*-- 接続モニタがPVM-2541の場合のみLUTを読み込む --*/
+  /*-- Only read LUT if connected to PVM-2541 monitor --*/
   if (Preferences::instance()->isDoColorCorrectionByUsing3DLutEnabled())
   {
-	  /*-- 接続モニタがPVM-2541の場合のみLUTを読み込む --*/
+	  /*-- Only read LUT if connected to PVM-2541 monitor --*/
 	  monitorNames = Ghibli3DLutUtil::getMonitorName();
 	  if (monitorNames.contains(QString::fromStdWString(L"PVM-2541")))
-		  /*-- 3DLUTファイルを読み込む --*/
+		  /*-- Read 3D LUT file --*/
 		  Ghibli3DLutUtil::loadLutFile(Preferences::instance()->get3DLutPath());
   }
-  /*-- 接続モニタをスプラッシュ画面にも表示 --*/
+  /*-- Display splash screen on attached monitor --*/
   if (!monitorNames.isEmpty())
   {
 	  lastUpdateStr += QString("Monitor Name : ");
@@ -597,13 +596,13 @@ int main(int argc, char *argv[])
 	splash.showMessage(offsetStr + "Creating main window ...", Qt::AlignCenter, Qt::white);
 	a.processEvents();
 
-	/*-- Layoutファイル名をMainWindowのctorに渡す --*/
+	/*-- Pass layout file name to MainWindow ctor --*/
 	MainWindow w(argumentLayoutFileName);
 
 	splash.showMessage(offsetStr + "Loading style sheet ...", Qt::AlignCenter, Qt::white);
 	a.processEvents();
 
-	// Carico lo styleSheet
+	// Load the styleSheet
 	QString currentStyle = Preferences::instance()->getCurrentStyleSheet();
 	a.setStyleSheet(currentStyle);
 
@@ -640,7 +639,7 @@ int main(int argc, char *argv[])
 #ifdef LINETEST
 	std::string license = License::getInstalledLicense();
 	License::writeMacAddress();
-	//Controllo che la data della prima installazione contenuta nella sentinella sia minore della data corrente.
+	// Check that date in first installation contained in sentinel is earlier than current date
 	if (License::isTemporaryLicense(license) && !License::isValidSentinel(license)) {
 		MsgBox(CRITICAL, QObject::tr("System date tampered."));
 		return -1;
