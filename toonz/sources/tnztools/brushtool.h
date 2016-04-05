@@ -169,8 +169,8 @@ protected:
 		m_isPath,
 		m_presetsLoaded;
 
-	/*--- 作業中のFrameIdをクリック時に保存し、マウスリリース時（Undoの登録時）に別のフレームに
-  移動していたときの不具合を修正する。---*/
+	/*-- Save FrameId accessed when clicking to fix bug when moving to another
+		frame on mouse release (when registering Undo). --*/
 	TFrameId m_workingFrameId;
 
 protected:

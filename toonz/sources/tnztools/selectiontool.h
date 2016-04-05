@@ -371,12 +371,12 @@ protected:
 	virtual void doOnActivate() = 0;
 	virtual void doOnDeactivate() = 0;
 
-	//Metodi per disegnare la linea della selezione Freehand
+	//Methods to draw Freehand selection line
 	void startFreehand(const TPointD &pos);
 	void freehandDrag(const TPointD &pos);
 	void closeFreehand(const TPointD &pos);
 
-	//Metodi per disegnare la linea della selezione Polyline
+	//Methods to draw Polyline selection line
 	void addPointPolyline(const TPointD &pos);
 	void closePolyline(const TPointD &pos);
 

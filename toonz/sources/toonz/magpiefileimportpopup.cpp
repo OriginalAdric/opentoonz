@@ -172,7 +172,7 @@ void MagpieFileImportPopup::showEvent(QShowEvent *)
 
 void MagpieFileImportPopup::hideEvent(QHideEvent *)
 {
-	//Devo svuotare il flibook
+	//Need to empty the flipbook
 	emit closeButtonPressed();
 }
 

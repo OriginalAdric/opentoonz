@@ -345,7 +345,7 @@ public:
 	virtual void onEnter() {} //!< Callback for the mouse entering the viewer area.
 	virtual void onLeave() {} //!< Callback for the mouse leaving the viewer area.
 
-	/*-- rasterSelectionTool のフローティング選択が残った状態でフレームが移動したときの挙動を決める --*/
+	/*-- Determine behavior of rasterSelectionTool when frame is moved while a floating selection remains --*/
 	virtual void onFrameSwitched() {}
 
 	virtual void reset() {}
@@ -424,7 +424,7 @@ public:
 	void enable(bool on) { m_enabled = on; }
 	bool isEnabled() const { return m_enabled; }
 
-	QString updateEnabled(); //!< Sets the tool's \a enability and returns a
+	QString updateEnabled(); //!< Sets the tools \a enabled and returns a
 							 //!  reason in case the tool was disabled.
 	bool isColumnLocked(int columnIndex) const;
 
@@ -440,7 +440,7 @@ public:
 	}
 
 public:
-	static std::vector<int> m_cellsData; //!< \deprecated  brutto brutto. fix quick & dirty del baco #6213 (undo con animation sheet) spiegazioni in tool.cpp
+	static std::vector<int> m_cellsData; //!< \deprecated  gross gross. quick & dirty fix for bug #6213 (undo with animation sheet) explanation in tool.cpp
 	static bool m_isLevelCreated;		 //!< \deprecated  Shouldn't expose global static variables.
 	static bool m_isFrameCreated;		 //!< \deprecated  Shouldn't expose global static variables.
 
@@ -539,7 +539,7 @@ public:
 
 	virtual void setFocus() = 0;
 
-	/*-- Toolで画面の内外を判断するため --*/
+	/*-- Used to determine inside and outside of screen in the Tool --*/
 	virtual TRectD getGeometry() const = 0;
 
 	//iwsw commented out

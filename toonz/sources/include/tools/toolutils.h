@@ -65,11 +65,10 @@ typedef std::vector<double> ArrayOfDouble;
 typedef ArrayOfTQ::iterator itATQ;
 typedef ArrayOfTQ::const_iterator citATQ;
 
-// inserito per rendere piu' piccolo il numero di punti delle stroke ricampionate
+// Added for making the smallest number of points for stroke resampling
 const double ReduceControlPointCorrection = 2.0;
 
-// controlla la dimensione del raggio di pick sotto la quale click and up
-//  risulta insesibile
+// Control the radius for picking in which click and up is accepted
 const double PickRadius = 1.5;
 
 //-----------------------------------------------------------------------------
@@ -111,9 +110,9 @@ QList<TRect> splitRect(const TRect &first, const TRect &second);
 
 //-----------------------------------------------------------------------------
 
-//! Return a transparent TRaster32P conteaining the self looped stroke fileed with white!
-//! If the stroke isn't self looped, the first point of the stroke is addee at the end.
-//! The returned image has the size of the stroke bounding box intrsected with the \b imageBounds.
+//! Return a transparent TRaster32P containing the self looped stroke filed with white!
+//! If the stroke isn't self looped, the first point of the stroke is added at the end.
+//! The returned image has the size of the stroke bounding box intersected with the \b imageBounds.
 //! If this intersection is empty a TRaster32P() is returned.
 TRaster32P convertStrokeToImage(TStroke *stroke, const TRect &imageBounds, TPoint &pos);
 
@@ -122,7 +121,7 @@ TRaster32P convertStrokeToImage(TStroke *stroke, const TRect &imageBounds, TPoin
 void drawBalloon(
 	const TPointD &pos,	// position "pointed" by the balloon (world units)
 	std::string text,	  // balloon text
-	const TPixel32 &color, // ballon background color (text is black)
+	const TPixel32 &color, // balloon background color (text is black)
 	TPoint delta,		   // text position (pixels; pos is the origin; y grows upward)
 	bool isPicking = false,
 	std::vector<TRectD> *otherBalloons = 0); // avoid other balloons positions; add the new ballons positions
@@ -331,14 +330,14 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-/*--  Hardness=100 又は Pencilモード のときのGeometricToolのUndo --*/
+/*-- GeometricTool undo for Pencil mode or when Hardness=100 --*/
 class UndoRasterPencil : public TRasterUndo
 {
 protected:
 	TStroke *m_stroke;
 	bool m_selective, m_filled, m_doAntialias;
 
-	/*-- HistoryにPrimitive名を表示するため --*/
+	/*-- For displaying Primitive name in the History --*/
 	string m_primitiveName;
 
 public:
@@ -491,7 +490,7 @@ public:
 	{
 	}
 
-	//calcola il sottovolume di un cono di raggio e volume unitario in base
+	//calculate subvolume of a cone of the radius and volume in base units
 	static double compute(double cover);
 };
 
@@ -522,8 +521,8 @@ TRectD DVAPI interpolateRect(const TRectD &rect1, const TRectD &rect2, double t)
 //!If \b maxThickness is not zero, the TRectD is computed using this value.
 TRectD DVAPI getBounds(const vector<TThickPoint> &points, double maxThickness = 0);
 
-//!Ritorna un raster uguale a quello dato ma ruotato di 90 gradi
-//!Il parametro toRight indica se si sta ruotando a destra o a sinistra!
+//!Returns a raster equal to that given, but rotated 90 degrees
+//!The toRight parameter indicates whether to turn right or left!
 template <typename PIXEL>
 TRasterPT<PIXEL> rotate90(const TRasterPT<PIXEL> &ras, bool toRight)
 {

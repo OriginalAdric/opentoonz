@@ -54,11 +54,12 @@ public:
 
 	void updateToolOption();
 
-	/*--- 現在のマウス位置がRulerに十分近ければTrue ---*/
+	/*--- Returns true if mouse position is sufficiently close to the Ruler ---*/
 	bool isNearRuler();
 
 private:
-	/*--- 基準点に対し、マウス位置を0,45,90度にフィットさせた位置を返す ---*/
+	/*--- With respect to reference point, return position in which to fit
+		the mouse position in 0,45,90 degrees ---*/
 	TPointD getHVCoordinatedPos(TPointD p, TPointD centerPos);
 };
 
