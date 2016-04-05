@@ -27,53 +27,52 @@ class DVAPI StylePicker
 public:
 	StylePicker() {}
 
-	// usa come palette la palette dell'immagine
+	// Use image's palette as palette
 	StylePicker(const TImageP &image);
 
-	// palette esterna (ad es. se image e' di tipo raster)
+	// External palette (eg. if image is a raster)
 	StylePicker(const TImageP &image, const TPaletteP &palette);
 
 	// pickStyleId(point, radius)
 	//
-	// point e' espresso in inches (eventualmente utilizzando il dpi dell'immagine)
-	// point == (0,0) indica il centro dell'immagine
+	// point is expressed in inches (possibly using DPI of image)
+	// point == (0,0) indicates center of the image
 	//
-	// immagini tzp:
-	//   ritorna l'indice del colore che si trova nel pixel individuato da point
-	//   (radius viene ignorato)
-	//   se tone<maxtone/2 ritorna l'inchiostro altrimenti il paint
+	// tzp images:
+	//   return index of the pixel color identified by point
+	//   (radius is ignored)
+	//   if tone<maxtone/2, returns the ink or the paint
 	//
-	// immagini pli
-	//   ritorna l'indice del colorstyle dello stroke che si trova
-	//   piu' vicini a point (ma non oltre radius) o dell'area fillata che
-	//   comprende point
+	// pli images:
+	//   return colorstyle index of the stroke closest to the point (but not
+	//   beyond the radius) or of the fill area that includes the point
 	//
-	// immagine fullcolor
-	//   ritorna l'indice del colorstyle della palette fornita nel costruttore
-	//   il cui maincolor e' piu' vicino al colore del pixel individuato da point
-	//   (radius viene ignorato)
+	// fullcolor images:
+	//   return colorstyle index of the palette provided in the constructor
+	//   whose main color is close to the color of the pixel identified by the
+	//   point (radius is ignored)
 	//
-	// Nota: se non trova niente ritorna -1
+	// Note: Returns -1 if nothing is found
 
-	/*-- (StylePickerTool内で)LineとAreaを切り替えてPickできる。mode: 0=Area, 1=Line, 2=Line&Areas(default)  --*/
+	/*-- (In StylePickerTool) Can switch picker between Line and Area. mode: 0=Area 1=Line, 2=Line&Areas (default) --*/
 	int pickStyleId(const TPointD &point, double radius2 = 1, int mode = 2) const;
 
-	/*--- Toonz Raster LevelのToneを拾う。 ---*/
+	/*--- Pick up tone of Toonz raster level. ---*/
 	int pickTone(const TPointD &pos);
 
-	// per pli come sopra, ma ritorna il maincolor
-	// per tzp e fullcolor ritorna il colore effettivo del pixel
+	// For pli: as above, but returns the maincolor
+	// For tzp and fullcolor: returns actual color of the pixel
 	TPixel32 pickColor(const TPointD &point, double radius2 = 1) const;
 
-	// ritorna il colore medio presente nell'area della finestra corrente openGL
+	// Returns average color of the current openGL window
 	TPixel32 pickColor(const TRectD &area) const;
 
-	// ritorna il colore medio presente nell'area interna all stroke della finestra corrente openGL
+	// Returns average color in the current stroke of the current openGL window
 	TPixel32 pickColor(TStroke *stroke) const;
 
-	// helper function. conversione di coordinate:
-	// p e' nel sist. di rif. descritto sopra
-	// il valore di ritorno si riferisce all'eventuale raster: (0,0)==leftbottom
+	// helper function. coordinate conversion:
+	// p in the reference system described above
+	// return value refers to the possible raster: (0,0)==leftbottom
 	TPoint getRasterPoint(const TPointD &p) const;
 };
 
